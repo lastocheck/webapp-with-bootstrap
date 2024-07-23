@@ -33,6 +33,8 @@ public class AdminController {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("newUser", new User());
+
+        model.addAttribute("currentPath", "/admin");
         return "admin/users";
     }
 

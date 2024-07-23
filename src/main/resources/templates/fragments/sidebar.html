@@ -8,10 +8,10 @@
 <body>
 <nav class="col-md-2 p-0 pt-3 nav nav-pills flex-column mb-auto" >
 
-    <a sec:authorize="hasRole('ADMIN')" href="/admin" class="nav-link" th:classappend="${#httpServletRequest.requestURI == '/admin' ? 'active' : ''}" >
+    <a sec:authorize="hasRole('ADMIN')" href="/admin" class="nav-link" th:classappend="${currentPath == '/admin' ? 'active' : ''}" >
         Admin
     </a>
-    <a href="/user" class="nav-link" >
+    <a href="/user" class="nav-link" th:classappend="${currentPath == '/user' ? 'active' : ''}">
         User
     </a>
 
