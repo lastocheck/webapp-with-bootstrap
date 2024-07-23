@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
         <meta charset="UTF-8">
     </head>
     <body>
-    <div th:fragment="header" class="login-logout-container">
-        <div sec:authorize="!isAuthenticated()">
-            <a href="/login">Log In</a>
-        </div>
-        <div sec:authorize="isAuthenticated()">
-            <a href="/logout">Logout</a>
-        </div>
-    </div>
+        <header class="bg-dark d-flex justify-content-between align-items-center py-2 px-4" th:fragment="header">
+            <div class="fs-5">
+                <span class="text-light fw-bold" th:text="${#authentication.name}">username</span>
+                <span class="text-light" > with roles: </span>
+                <span class="text-light fw-bold" th:text="${@templatesUtil.getRolesStringFromAuthorities(#authentication.authorities)}">username</span>
+            </div>
+
+            <a sec:authorize="!isAuthenticated()" href="/login" class="d-block link-secondary text-decoration-none" >Log In</a>
+            <a sec:authorize="isAuthenticated()" href="/logout" class="d-block link-secondary text-decoration-none">Logout</a>
+        </header>>
+
     </body>
 </html>
