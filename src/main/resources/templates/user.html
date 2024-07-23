@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/fragments/layouts/base_layout}">
     <head>
-        <meta charset="UTF-8">
         <title>User</title>
-        <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
-    <header th:insert="fragments/header.html :: header"> </header>
-    <h1 th:text="'User ' + ${user.getUsername()}"></h1>
-    <table class="users-table">
-        <thead>
-        <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td  th:text="${user.getUsername()}"></td>
-            <td  th:text="${user.getContactInfo().getEmail()}"></td>
-            <td  th:text="${user.getContactInfo().getPhone()}"></td>
-        </tr>
-        </tbody>
-    </table>
+
+    <div layout:fragment="content">
+        <h1 th:text="'User ' + ${user.getUsername()}"></h1>
+        <table class="users-table">
+            <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td  th:text="${user.getUsername()}"></td>
+                <td  th:text="${user.getContactInfo().getEmail()}"></td>
+                <td  th:text="${user.getContactInfo().getPhone()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     </body>
 </html>
