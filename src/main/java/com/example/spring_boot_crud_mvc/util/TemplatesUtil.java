@@ -10,6 +10,6 @@ import java.util.stream.Collectors;
 public class TemplatesUtil {
 
     public String getRolesStringFromAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        return authorities.stream().map(s -> s.getAuthority().replace("ROLE_", "")).collect(Collectors.joining(","));
+        return authorities.stream().map(s -> s.getAuthority().replace("ROLE_", "")).collect(Collectors.joining(", "));
     }
 }
