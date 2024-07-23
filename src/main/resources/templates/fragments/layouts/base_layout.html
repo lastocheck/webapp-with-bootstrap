@@ -10,7 +10,14 @@
 <body>
 <header th:replace="~{/fragments/header::header}"></header>
 
-<section layout:fragment="content">content section</section>
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="~{/fragments/sidebar}">sidebar</nav>
+        <main class="col-md-10" layout:fragment="content">content section</main>
+    </div>
+</div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

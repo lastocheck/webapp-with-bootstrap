@@ -15,6 +15,8 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         var user = (User) auth.getPrincipal();
         model.addAttribute("user", user);
+
+        model.addAttribute("currentPath", "/user");
         return "user";
     }
 

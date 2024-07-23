@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<nav class="col-md-2 p-0 pt-3 nav nav-pills flex-column mb-auto" >
+
+    <a sec:authorize="hasRole('ADMIN')" href="/admin" class="nav-link" th:classappend="${#httpServletRequest.requestURI == '/admin' ? 'active' : ''}" >
+        Admin
+    </a>
+    <a href="/user" class="nav-link" >
+        User
+    </a>
+
+</nav>
+</body>
+</html>

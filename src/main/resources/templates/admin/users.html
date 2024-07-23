@@ -27,20 +27,19 @@
             <td  th:text="${user.getContactInfo().getPhone()}"></td>
             <td  th:text="${#strings.substring(user.getRoles(), 1, user.getRoles().toString().length() - 1)}"></td>
             <td>
-<!--                <a th:href="@{/users/delete(id=${user.getId()})}">Delete</a>-->
-                <form method="POST" th:action="@{/admin/users/delete}">
+                <form method="POST" th:action="@{/admin/delete}">
                     <button type="submit" th:name="id" th:value="${user.getId()}" class="link-button">Delete</button>
                 </form>
             </td>
             <td>
-                <a th:href="@{/admin/users/update(id=${user.getId()})}">Edit</a>
+                <a th:href="@{/admin/update(id=${user.getId()})}">Edit</a>
             </td>
         </tr>
         </tbody>
     </table>
 
         <h2>Add new user</h2>
-        <form th:method="POST" th:action="@{/admin/users}" th:object="${newUser}" class="add-user-form">
+        <form th:method="POST" th:action="@{/admin}" th:object="${newUser}" class="add-user-form">
             <label for="username">Username</label>
             <input type="text" th:field="*{username}" id="username" />
 
