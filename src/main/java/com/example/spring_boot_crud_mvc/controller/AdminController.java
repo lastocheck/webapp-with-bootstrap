@@ -55,20 +55,18 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/update")
-    public String getUpdatePage(@RequestParam("id") int id, Model model) {
-        model.addAttribute("roles", roleService.findAll());
-        model.addAttribute("user", userService.findById(id));
-        return "admin/update";
-    }
-
     @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User newUserDetails, @RequestParam List<Integer> roleIds) {
+//        System.out.println("updating with new user details: " + newUserDetails);
+//        System.out.println("roleIds: " + roleIds);
+//        if (true) return "redirect:/admin";
         User user = userService.findById(newUserDetails.getId());
         Set<Role> roles = roleIds.stream().map(roleService::findById).collect(Collectors.toSet());
         user.setRoles(roles);
         user.setUsername(newUserDetails.getUsername());
-        user.setContactInfo(newUserDetails.getContactInfo());
+        if (newUserDetails.getContactInfo() != null) {
+            user.setContactInfo(newUserDetails.getContactInfo());
+        }
         userService.update(user);
         return "redirect:/admin";
     }

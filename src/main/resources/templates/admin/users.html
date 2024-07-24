@@ -41,19 +41,25 @@
                             <td  th:text="${user.getContactInfo().getPhone()}"></td>
                             <td  th:text="${@templatesUtil.getRolesStringFromAuthorities(user.getRoles())}"></td>
                             <td>
-                                <a th:href="@{/admin/update(id=${user.getId()})}" class="btn btn-info">Edit</a>
+                                <button type="button" data-bs-toggle="modal" th:attr="data-bs-target='#editModal'+${user.getId()}" class="btn btn-info">Edit</button>
+
+                                <div th:replace="~{/fragments/modals/edit_modal}">edit modal</div>
                             </td>
                             <td>
                                 <form method="POST" th:action="@{/admin/delete}">
                                     <button type="submit" th:name="id" th:value="${user.getId()}" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
+
+
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+<!--        ADD USER TAB-->
 
         <div class="tab-pane fade" id="nav-new-user" role="tabpanel" aria-labelledby="nav-new-user-tab" tabindex="0">
 
@@ -84,7 +90,7 @@
 
                         <div class="form-group mb-3">
                             <label for="roles" class="form-label fw-bold">Roles:</label>
-                            <select class="form-select" multiple aria-label="roles" name="roleIds" id="roles">
+                            <select class="form-select" th:size="${#lists.size(roles)}" multiple aria-label="roles" name="roleIds" id="roles">
                                 <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">role name</option>
                             </select>
                         </div>
@@ -97,8 +103,6 @@
         </div>
         </div>
     </div>
-
-
 </div>
 </body>
 </html>
