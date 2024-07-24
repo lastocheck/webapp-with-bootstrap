@@ -4,74 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
-    <link href="/css/styles.css" rel="stylesheet" />
 </head>
 <body>
 <div layout:fragment="content">
     <h1>Admin page</h1>
 
-    <div class="card mt-3">
-        <h5 class="card-header p-3">All users</h5>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-users-tab" data-bs-toggle="tab" data-bs-target="#nav-users" type="button" role="tab" aria-controls="nav-users" aria-selected="true">Users Table</button>
+            <button class="nav-link" id="nav-new-user-tab" data-bs-toggle="tab" data-bs-target="#nav-new-user" type="button" role="tab" aria-controls="nav-new-user" aria-selected="false">New User</button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab" tabindex="0">
+            <div class="card">
+                <h5 class="card-header p-3">All users</h5>
 
-        <div class="card-body">
-            <table class="table table-striped border-top">
-                <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Roles</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${users}">
-                    <td  th:text="${user.getId()}"></td>
-                    <td  th:text="${user.getUsername()}"></td>
-                    <td  th:text="${user.getContactInfo().getEmail()}"></td>
-                    <td  th:text="${user.getContactInfo().getPhone()}"></td>
-                    <td  th:text="${@templatesUtil.getRolesStringFromAuthorities(user.getRoles())}"></td>
-                    <td>
-                        <a th:href="@{/admin/update(id=${user.getId()})}" class="btn btn-info">Edit</a>
-                    </td>
-                    <td>
-                        <form method="POST" th:action="@{/admin/delete}">
-                            <button type="submit" th:name="id" th:value="${user.getId()}" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                <div class="card-body">
+                    <table class="table table-striped border-top">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Roles</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td  th:text="${user.getId()}"></td>
+                            <td  th:text="${user.getUsername()}"></td>
+                            <td  th:text="${user.getContactInfo().getEmail()}"></td>
+                            <td  th:text="${user.getContactInfo().getPhone()}"></td>
+                            <td  th:text="${@templatesUtil.getRolesStringFromAuthorities(user.getRoles())}"></td>
+                            <td>
+                                <a th:href="@{/admin/update(id=${user.getId()})}" class="btn btn-info">Edit</a>
+                            </td>
+                            <td>
+                                <form method="POST" th:action="@{/admin/delete}">
+                                    <button type="submit" th:name="id" th:value="${user.getId()}" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="nav-new-user" role="tabpanel" aria-labelledby="nav-new-user-tab" tabindex="0">
+
+            <div class="card">
+                <h5 class="card-header p-3">Add new user</h5>
+
+                <div class="card-body d-flex justify-content-center text-center">
+                    <form th:method="POST" th:action="@{/admin}" th:object="${newUser}" class="col-4">
+                        <div class="form-group mb-3" >
+                            <label for="username" class="form-label fw-bold">Username</label>
+                            <input type="text" class="form-control" th:field="*{username}" id="username" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label fw-bold">Password</label>
+                            <input type="text" class="form-control" th:field="*{password}" id="password" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <input type="email" class="form-control" th:field="*{contactInfo.email}"  id="email" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="phone" class="form-label fw-bold">Phone number</label>
+                            <input type="text" class="form-control " th:field="*{contactInfo.phone}"  id="phone" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="roles" class="form-label fw-bold">Roles:</label>
+                            <select class="form-select" multiple aria-label="roles" name="roleIds" id="roles">
+                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">role name</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-success" type="submit">Add user</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 
 
-        <h2>Add new user</h2>
-        <form th:method="POST" th:action="@{/admin}" th:object="${newUser}" class="add-user-form">
-            <label for="username">Username</label>
-            <input type="text" th:field="*{username}" id="username" />
-
-            <label for="password">Password</label>
-            <input type="text" th:field="*{password}" id="password" />
-
-            <label for="email">Email</label>
-            <input type="text" th:field="*{contactInfo.email}"  id="email" />
-
-            <label for="phone">Phone number</label>
-            <input type="text" th:field="*{contactInfo.phone}"  id="phone" />
-
-            <div>
-                <label>Roles:</label>
-                <div th:each="role : ${roles}">
-                    <input type="checkbox" th:value="${role.id}" name="roleIds"/> <span th:text="${role.name}">role name</span><br/>
-                </div>
-            </div>
-
-            <input type="submit" value="Add user">
-
-        </form>
 </div>
 </body>
 </html>
