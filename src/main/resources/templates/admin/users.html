@@ -46,9 +46,9 @@
                                 <div th:replace="~{/fragments/modals/edit_modal}">edit modal</div>
                             </td>
                             <td>
-                                <form method="POST" th:action="@{/admin/delete}">
-                                    <button type="submit" th:name="id" th:value="${user.getId()}" class="btn btn-danger">Delete</button>
-                                </form>
+                                <button type="button" data-bs-toggle="modal" th:attr="data-bs-target='#deleteModal'+${user.getId()}" class="btn btn-danger">Delete</button>
+
+                                <div th:replace="~{/fragments/modals/delete_modal}">delete modal</div>
                             </td>
 
 
